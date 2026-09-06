@@ -1,3 +1,9 @@
-# ConvertKit Connector - AUTH_AND_CREDENTIALS.md
+# KeePass Connector — Auth & Credentials Standard
 
-Standard documentation for ConvertKit Connector in Imperal Cloud.
+**Compliance:** AUTH_AND_CREDENTIALS_STANDARD.md (B1–B10)
+
+## Схема аутентификации
+- **Метод:** Master Password / Keyfile / KeePassHTTP RPC Key
+- **Хранение:** Секреты сохраняются изолированно в хранилище секретов платформы Imperal.
+- **Валидация:** При сохранении ключа выполняется тестовый запрос `Local database unlock verification`.
+- **Отключение:** Удаление локальных ключей без воздействия на аккаунт вендора.

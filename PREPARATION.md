@@ -1,3 +1,27 @@
-# ConvertKit Connector - PREPARATION.md
+# KeePass Connector — Preparation
 
-Standard documentation for ConvertKit Connector in Imperal Cloud.
+**Category:** C33. Password & Secrets Management  
+**Status:** Canonical App Preparation (APP_PREPARATION_STANDARD.md)  
+**Target API:** Local RPC / KeePassHTTP / File Parser (No cloud API)  
+
+## 1. Паспорт приложения
+- **Название:** KeePass Connector
+- **Категория:** C33. Password & Secrets Management
+- **Официальный сайт:** https://keepass.info
+- **Модель доступа:** Master Password / Keyfile / KeePassHTTP RPC Key
+
+## 2. Человеческая проблема
+Когда системный администратор сталкивается с задачей локальное хранение зашифрованных баз паролей KDBX без централизованного облачного бэкенда, ей приходится вручную переключаться между сервисами, что приводит к задержкам и потере контроля данных.
+
+## 3. Пользователи и роли
+- **системный администратор:** операционная работа, контроль выполнения сценариев.
+- **Администратор безопасности / ИТ:** управление правами, ротация ключей доступа.
+- **Оператор Imperal Cloud:** автоматизация сценариев через безопасные протоколы ICNLI.
+
+## 4. Первичный сценарий
+`разблокировка локальной базы KDBX -> поиск учетной записи -> получение пароля через локальный защищенный канал`.
+
+## 5. Границы и безопасность
+- Никаких синтетических шаблонов от других предметных областей.
+- Использование только принципа Bring Your Own Credentials (BYOC).
+- Маскирование секретов и аудит всех изменений.
