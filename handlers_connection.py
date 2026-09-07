@@ -35,7 +35,7 @@ async def resolve_client(ctx, connection_id: str = "") -> KeePassKeePassXCClient
     return KeePassKeePassXCClient(api_key=conn["api_key"], base_url=conn.get("base_url", ""))
 
 @chat.function("connect_keepass_connector", "Connect KeePass KeePassXC account via credentials.", action_type="write", chain_callable=True, event="keepass-connector.connect_keepass_connector", effects=["create:connection"], data_model=ConnectionRecord)
-async def connect_keepass_connector(params: ConnectParams, ctx) -> ActionResult:
+async def connect_keepass_connector(ctx, params: ConnectParams) -> ActionResult:
     client = KeePassKeePassXCClient(api_key=params.api_key, base_url=params.base_url)
     res = await client.verify_auth()
     if res.get("status") == "error":
@@ -56,7 +56,7 @@ async def connect_keepass_connector(params: ConnectParams, ctx) -> ActionResult:
     return ActionResult.success(rec, summary=f"Connected KeePass KeePassXC ({rec['label']}).")
 
 @chat.function("list_connections", "List configured KeePass KeePassXC connections.", action_type="read", chain_callable=True, event="keepass-connector.list_connections", effects=["read:connections"], data_model=ConnectionList)
-async def list_connections(params: NoParams, ctx) -> ActionResult:
+async def list_connections(ctx, params: NoParams) -> ActionResult:
     conns = await _load_conns(ctx)
     items = [{
         "id": c["id"],
@@ -68,7 +68,7 @@ async def list_connections(params: NoParams, ctx) -> ActionResult:
     return ActionResult.success({"connections": items, "total": len(items)}, summary=f"Found {len(items)} connection(s).")
 
 @chat.function("disconnect_keepass_connector", "Disconnect KeePass KeePassXC account and delete stored credentials.", action_type="destructive", chain_callable=True, event="keepass-connector.disconnect_keepass_connector", effects=["delete:connection"], data_model=DeleteResult)
-async def disconnect_keepass_connector(params: ConnectionIdParams, ctx) -> ActionResult:
+async def disconnect_keepass_connector(ctx, params: ConnectionIdParams) -> ActionResult:
     conns = await _load_conns(ctx)
     if not conns:
         return ActionResult.error("No connections to disconnect.")
